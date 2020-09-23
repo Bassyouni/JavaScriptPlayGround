@@ -1,8 +1,16 @@
 const SomeClass = require("./promise");
 
 describe("testing promises",  () => {
-   test("add Bassyouni to name shouw add bassyoun", async () => {
+   test("get Name, adds bassyouni to it 1", async () => {
        expect.assertions(1);
+       const someClass = makeSUT();
+
+       return someClass.getName().then((name) => {
+           expect(name).toEqual("Omar Bassyouni");
+       })
+   });
+
+   function makeSUT() {
        let mockNameFetcher = {
            fetchName() {
                return new Promise((resolve, reject) => {
@@ -10,10 +18,6 @@ describe("testing promises",  () => {
                })
            }
        }
-       const someClass = new SomeClass(mockNameFetcher);
-
-       return someClass.getName().then((name) => {
-           expect(name).toEqual("Omar Bassyouni");
-       })
-   });
+       return new SomeClass(mockNameFetcher);
+   }
 });
